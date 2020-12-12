@@ -15,7 +15,7 @@ jobs:
       - name: Install pandoc
         run: sudo apt install -y pandoc
       - name: Convert Markdown to HTML
-        run: find -type f -name '*.md' | sed -e 's/\.md$//' | xargs -L 1 -I {} pandoc --verbose -f markdown -t html -o {}.html {}.md
+        run: find -type f -name '*.md' | sed -e 's/\.md$//' | xargs -L 1 -I {} pandoc --verbose -f markdown_github -t html -o {}.html {}.md
       - name: Checkout branch & Commit files
         run: |
           find -type d -name '.git' -prune -o -type f -not -name '*.html' -print | xargs -L 1 -I {} rm "{}"
