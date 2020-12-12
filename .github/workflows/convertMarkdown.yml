@@ -24,6 +24,8 @@ jobs:
         run: |
           find -type d -name '.git' -prune -o -type f -not -name '*.html' -print | xargs -L 1 -I {} rm "{}"
           git add *.html
+          git config --local user.name "Convert Bot"
+          git config --local user.email secret.EMAIL
           git checkout -b release
           git commit -v -m "[Bot] Auto build $(date +'%Y-%m-%d')"
           git push origin release
