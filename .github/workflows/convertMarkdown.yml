@@ -22,7 +22,7 @@ jobs:
         run: find -type f -name '*.md' | sed -e 's/\.md$//' | xargs -L 1 -I {} pandoc -f markdown -t html -o {}.html {}.md
       - name: Checkout branch & Commit files
         run: |
-          find -type f -not -name '*.md' | xargs rm
+          find -type f -not -name '*.md' | xargs -L 1 -I {} rm "{}"
           git add *.html
           git checkout -b release
           git commit -v -m "[Bot] Auto build $(date +'%Y-%m-%d')"
