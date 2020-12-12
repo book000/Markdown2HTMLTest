@@ -1,10 +1,6 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Markdown to HTML
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ master ]
 
@@ -28,4 +24,4 @@ jobs:
           git config --local user.email secret.EMAIL
           git checkout -b release
           git commit -v -m "[Bot] Auto build $(date +'%Y-%m-%d')"
-          git push origin release
+          git push origin release -f
