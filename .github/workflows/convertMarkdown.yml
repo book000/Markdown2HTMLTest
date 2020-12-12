@@ -1,0 +1,27 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Markdown to HTML
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: master
+      - name: Install pandoc
+        run: apt install -y pandoc
+      - name: Convert Markdown to HTML
+        run: find -type f -name '*.md' | sed -e 's/\.md$//' | xargs -L 1 -I {} pandoc -f markdown -t html -o {}.html {}.md
+      - name: Checkout branch
+        run: |
+          git add *.html
+          git checkout -b release
+          git push origin release
