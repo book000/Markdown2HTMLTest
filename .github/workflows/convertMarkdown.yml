@@ -20,8 +20,10 @@ jobs:
         run: sudo apt install -y pandoc
       - name: Convert Markdown to HTML
         run: find -type f -name '*.md' | sed -e 's/\.md$//' | xargs -L 1 -I {} pandoc -f markdown -t html -o {}.html {}.md
-      - name: Checkout branch
+      - name: Checkout branch & Commit files
         run: |
+          find -type f -not -name '*.md' | xargs rm
           git add *.html
           git checkout -b release
+          git commit -v -m "[Bot] Auto build $(date +'%Y-%m-%d')"
           git push origin release
