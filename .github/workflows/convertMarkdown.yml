@@ -19,7 +19,7 @@ jobs:
       - name: Checkout branch & Commit files
         run: |
           find -type d -name '.git' -prune -o -type f -not -name '*.html' -print | xargs -L 1 -I {} rm "{}"
-          git add *.html
+          git add -A
           git config --local user.name "Convert Bot"
           git config --local user.email secret.EMAIL
           git checkout -b release
