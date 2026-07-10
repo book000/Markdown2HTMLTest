@@ -19,6 +19,7 @@ or test suite — most content is sample Markdown plus one workflow file.
 - Missing tests, linters, or `package.json`: this repository intentionally has none.
 - The Markdown files (`test.md`, `folder/file.md`) are deliberate GFM feature samples.
   Do not report their unusual constructs (placeholder `⋅` dots, intentionally
-  malformed lists, raw HTML inside tables) as bugs — they are test fixtures.
+  malformed lists, raw HTML blocks such as the `<dl>` definition list, raw
+  `<b>`/`<em>` tags) as bugs — they are test fixtures.
 - Generated `*.html` files and the `release` branch: these are build output, not source.
 - Non-ASCII filenames or Japanese text: expected in this repository.
