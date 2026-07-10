@@ -1,0 +1,41 @@
+<h1 id="copilot-code-review-instructions">Copilot code review
+instructions</h1>
+<p>Markdown2HTMLTest is a test repository whose purpose is to convert
+Markdown to HTML via a GitHub Actions + pandoc pipeline. It has no
+application code, package manager, or test suite — most content is
+sample Markdown plus one workflow file.</p>
+<h2 id="what-to-review">What to review</h2>
+<ul>
+<li><code>.github/workflows/convertMarkdown.yml</code> is the only
+executable logic. Check for:
+<ul>
+<li>Shell word-splitting or injection risks in the
+<code>find | xargs | pandoc</code> and <code>rm</code> pipelines. A
+filename with spaces already exists in this repo
+(<code>新しいテキスト   ドキュメント.txt</code>); today it is not a
+<code>*.md</code> file so it only exercises the <code>rm</code>
+pipeline, but it would also exercise the pandoc pipeline if a future
+<code>*.md</code> path contained spaces.</li>
+<li>Destructive steps: the workflow deletes all non-HTML files and
+force-pushes the <code>release</code> branch. Flag changes that could
+delete or overwrite unintended files or branches.</li>
+<li>Action versions that are outdated or unpinned (e.g.
+<code>actions/checkout</code>).</li>
+</ul></li>
+</ul>
+<h2 id="what-not-to-flag">What NOT to flag</h2>
+<ul>
+<li>Missing tests, linters, or <code>package.json</code>: this
+repository intentionally has none.</li>
+<li>The Markdown files (<code>test.md</code>,
+<code>folder/file.md</code>) are deliberate GFM feature samples. Do not
+report their unusual constructs (placeholder <code>⋅</code> dots,
+intentionally malformed lists, raw HTML blocks such as the
+<code>&lt;dl&gt;</code> definition list, raw
+<code>&lt;b&gt;</code>/<code>&lt;em&gt;</code> tags) as bugs — they are
+test fixtures.</li>
+<li>Generated <code>*.html</code> files and the <code>release</code>
+branch: these are build output, not source.</li>
+<li>Non-ASCII filenames or Japanese text: expected in this
+repository.</li>
+</ul>

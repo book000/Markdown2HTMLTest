@@ -1,0 +1,41 @@
+<h1 id="claudemd">CLAUDE.md</h1>
+<h2 id="project-overview">Project overview</h2>
+<p>Markdown2HTMLTest is a demonstration/test repository that
+automatically converts every Markdown file in the repo to HTML. It
+exists to exercise a GitHub Actions + pandoc conversion pipeline, not to
+ship an application. The Markdown files (<code>test.md</code>,
+<code>folder/file.md</code>) are sample GitHub-Flavored Markdown
+documents used as conversion input.</p>
+<h2 id="how-the-conversion-works">How the conversion works</h2>
+<ul>
+<li><code>.github/workflows/convertMarkdown.yml</code> runs on every
+push to the <code>master</code> branch.</li>
+<li>It installs <code>pandoc</code>, converts each <code>*.md</code>
+file to a sibling <code>*.html</code> file, deletes all non-HTML files,
+and force-pushes the result to the <code>release</code> branch.</li>
+<li>The <code>release</code> branch is generated output only. Never edit
+it by hand or open PRs against it — every run overwrites it with
+<code>git push -f</code>.</li>
+</ul>
+<h2 id="working-on-this-repository">Working on this repository</h2>
+<ul>
+<li>Author content on <code>master</code>. The repo is primarily
+Markdown sources (plus the workflow), but may include a small number of
+non-Markdown fixture files (e.g.
+<code>新しいテキスト ドキュメント.txt</code>) for edge cases such as
+filenames with spaces.</li>
+<li>There is no local build, test, or lint tooling (no
+<code>package.json</code>, no test suite). To verify a change, push to
+<code>master</code> (or run the pandoc command below locally) and
+inspect the generated HTML on the <code>release</code> branch.</li>
+<li>Local one-off check of the conversion (mirrors the workflow):
+<code>find -type f -name '*.md' | sed -e 's/\.md$//' | xargs -L 1 -I {} pandoc --verbose -f markdown_github -t html -o {}.html {}.md</code></li>
+</ul>
+<h2 id="conventions-and-cautions">Conventions and cautions</h2>
+<ul>
+<li>Keep <code>master</code> limited to source Markdown; do not commit
+generated <code>*.html</code> there (the workflow produces those on
+<code>release</code>).</li>
+<li>Do not hardcode real credentials in the workflow; the commit
+identity is a bot placeholder.</li>
+</ul>
