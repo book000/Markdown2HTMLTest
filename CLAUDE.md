@@ -18,12 +18,14 @@ as conversion input.
 
 ## Working on this repository
 
-- Author content on `master`. Only `*.md` files (plus the workflow) are meant to live here.
+- Author content on `master`. The repo is primarily Markdown sources (plus the
+  workflow), but may include a small number of non-Markdown fixture files
+  (e.g. `新しいテキスト ドキュメント.txt`) for edge cases such as filenames with spaces.
 - There is no local build, test, or lint tooling (no `package.json`, no test suite).
   To verify a change, push to `master` (or run the pandoc command below locally) and
   inspect the generated HTML on the `release` branch.
 - Local one-off check of the conversion (mirrors the workflow):
-  `find -type f -name '*.md' | sed -e 's/\.md$//' | xargs -L 1 -I {} pandoc -f markdown_github -t html -o {}.html {}.md`
+  `find -type f -name '*.md' | sed -e 's/\.md$//' | xargs -L 1 -I {} pandoc --verbose -f markdown_github -t html -o {}.html {}.md`
 
 ## Conventions and cautions
 

@@ -8,7 +8,10 @@ or test suite — most content is sample Markdown plus one workflow file.
 
 - `.github/workflows/convertMarkdown.yml` is the only executable logic. Check for:
   - Shell word-splitting or injection risks in the `find | xargs | pandoc` and `rm`
-    pipelines (filenames with spaces already exist in this repo).
+    pipelines. A filename with spaces already exists in this repo (`新しいテキスト
+    ドキュメント.txt`); today it is not a `*.md` file so it only exercises the `rm`
+    pipeline, but it would also exercise the pandoc pipeline if a future `*.md` path
+    contained spaces.
   - Destructive steps: the workflow deletes all non-HTML files and force-pushes the
     `release` branch. Flag changes that could delete or overwrite unintended files or
     branches.
